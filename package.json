@@ -1,0 +1,23 @@
+{
+  "name": "victor-ops-on-call",
+  "version": "1.0.0",
+  "description": "queries the victor ops API to get the current on call rota and emits events when there are changes to who is currently on call",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=development DEBUG=* nodemon app.js",
+    "test": "NODE_ENV=development mocha -w"
+  },
+  "author": "Jon Hunter",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^2.9.34",
+    "debug": "^2.2.0",
+    "lodash": "^3.10.1",
+    "nconf": "^0.7.2",
+    "nodemon": "^1.4.1"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^2.3.1"
+  }
+}
