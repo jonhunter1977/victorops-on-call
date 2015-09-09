@@ -9,8 +9,8 @@ debug('Polling interval in ms : ' + interval);
 setInterval(function(){
 
     victoropsoncall.getOnCallRotaForAllTeams().then(function(data){
-        var onCallData = JSON.parse(data);
-        debug(onCallData);
+        //var onCallData = JSON.parse(data);
+        victoropsoncall.getPeopleOnCallForAllTeams(data);
     }).catch(function(err){
         debug('ERROR : ' + err);
     });

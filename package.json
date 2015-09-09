@@ -14,7 +14,8 @@
     "debug": "^2.2.0",
     "lodash": "^3.10.1",
     "nconf": "^0.7.2",
-    "nodemon": "^1.4.1"
+    "nodemon": "^1.4.1",
+    "redis": "^1.0.0"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
