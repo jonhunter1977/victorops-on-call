@@ -126,4 +126,106 @@ describe('Victor-Ops', function () {
             });
         });
     });
+
+    describe('checkIfRotaHasChanged', function () {
+        it('Should return true if a person on call has changed', function () {
+
+            var oldRota = { "oncall" : [
+                {"team" : "Application Support","oncall" : "ssunkari"},
+                {"team" : "System Support","oncall" : "pcrombie"},
+                {"team" : "Database Support","oncall" : "mrkashif"},
+                {"team" : "Duty Management","oncall" : "itservicedesk"}
+            ]};
+
+            var newRota = { "oncall" : [
+                {"team" : "Application Support","oncall" : "steveelliott"},
+                {"team" : "System Support","oncall" : "pcrombie"},
+                {"team" : "Database Support","oncall" : "mrkashif"},
+                {"team" : "Duty Management","oncall" : "itservicedesk"}
+            ]};
+
+            return victoropsoncall.hasRotaChanged(oldRota.oncall, newRota.oncall).then(function(data){
+                expect(data).to.eql(true);
+            }).catch(function(err){
+                expect().fail(err);
+            });
+        });
+
+        it('Should return false if the rota has not changed', function () {
+
+            var oldRota = { "oncall" : [
+                {"team" : "Application Support","oncall" : "ssunkari"},
+                {"team" : "System Support","oncall" : "pcrombie"},
+                {"team" : "Database Support","oncall" : "mrkashif"},
+                {"team" : "Duty Management","oncall" : "itservicedesk"}
+            ]};
+
+            var newRota = { "oncall" : [
+                {"team" : "Application Support","oncall" : "ssunkari"},
+                {"team" : "System Support","oncall" : "pcrombie"},
+                {"team" : "Database Support","oncall" : "mrkashif"},
+                {"team" : "Duty Management","oncall" : "itservicedesk"}
+            ]};
+
+            return victoropsoncall.hasRotaChanged(oldRota.oncall, newRota.oncall).then(function(data){
+                expect(data).to.eql(false);
+            }).catch(function(err){
+                expect().fail(err);
+            });
+        });
+
+        it('Should return an error if one of the rotas has no data', function () {
+
+            var oldRota = { "oncall" : [
+                {"team" : "Application Support","oncall" : "ssunkari"},
+                {"team" : "System Support","oncall" : "pcrombie"},
+                {"team" : "Database Support","oncall" : "mrkashif"},
+                {"team" : "Duty Management","oncall" : "itservicedesk"}
+            ]};
+
+            var newRota;
+
+            return victoropsoncall.hasRotaChanged(oldRota.oncall, newRota).then(function(data){
+                expect().fail(data);
+            }).catch(function(err){
+                expect(err).to.be('some or all rota data was not supplied');
+            });
+        }); 
+
+        it('Should return an error if both of the rotas have no data', function () {
+
+            var oldRota;
+            var newRota;
+
+            return victoropsoncall.hasRotaChanged(oldRota, newRota).then(function(data){
+                expect().fail(data);
+            }).catch(function(err){
+                expect(err).to.be('some or all rota data was not supplied');
+            });
+        });
+
+        it('Should return an error if both of the rotas are blank strings', function () {
+
+            var oldRota = '';
+            var newRota = '';
+
+            return victoropsoncall.hasRotaChanged(oldRota, newRota).then(function(data){
+                expect().fail(data);
+            }).catch(function(err){
+                expect(err).to.be('some or all rota data was not supplied');
+            });
+        }); 
+
+        it('Should return an error if both of the rotas are blank arrays', function () {
+
+            var oldRota = { "oncall" : []};
+            var newRota = { "oncall" : []};
+
+            return victoropsoncall.hasRotaChanged(oldRota.oncall, newRota.oncall).then(function(data){
+                expect().fail(data);
+            }).catch(function(err){
+                expect(err).to.be('some or all rota data was not supplied');
+            });
+        });         
+    });
 });

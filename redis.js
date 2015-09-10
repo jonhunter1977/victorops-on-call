@@ -25,7 +25,6 @@ module.exports = function() {
 
     var setHash = function(hash, obj){
         return new Promise(function(resolve, reject){
-            console.log(obj);
             client.hmset(hash, obj, function (err, obj) {
 
                 if(err) {
