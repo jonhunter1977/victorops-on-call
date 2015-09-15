@@ -1,11 +1,16 @@
 var debug = require('debug')('victor-ops-on-call:redis-tests');
-var config = require('../config/index');
 var expect = require('expect.js');
 var redis = require('../redis.js');
 
 var testRota = { "oncall" : []};
 testRota.oncall.push({"team" : "Application Support","oncall" : "ssunkari"});
 testRota.oncall.push({"team" : "System Support","oncall" : "pcrombie"});
+testRota.oncall.push({"team" : "Database Support","oncall" : "mrkashif"});
+testRota.oncall.push({"team" : "Duty Management","oncall" : "itservicedesk"});
+
+var updatedTestRota = { "oncall" : []};
+testRota.oncall.push({"team" : "Application Support","oncall" : "selliot"});
+testRota.oncall.push({"team" : "System Support","oncall" : "jhunter"});
 testRota.oncall.push({"team" : "Database Support","oncall" : "mrkashif"});
 testRota.oncall.push({"team" : "Duty Management","oncall" : "itservicedesk"});
 
@@ -70,6 +75,28 @@ describe('Redis', function () {
                 return redis.getHash(hash);
             }).then(function(data){
                 expect(JSON.parse(data.oncall)).to.eql(testRota.oncall);
+            }).catch(function(err){
+                expect().fail(err);
+            });
+        });
+    });
+
+    describe('set and update hash', function () {
+
+        before(function() {
+            redis.deleteHash('oncallrota');
+        });
+
+        it('Should set the hash value and then update it with a new value', function () {
+            var hash = 'oncallrota';
+            return redis.setHash(hash, {"oncall" : JSON.stringify(testRota.oncall)}).then(function(data){
+                expect(data).to.be('OK');
+                return redis.setHash(hash, {"oncall" : JSON.stringify(updatedTestRota.oncall)});
+            }).then(function(data){
+                expect(data).to.be('OK');
+                return redis.getHash(hash);
+            }).then(function(data){
+                expect(JSON.parse(data.oncall)).to.eql(updatedTestRota.oncall);
             }).catch(function(err){
                 expect().fail(err);
             });

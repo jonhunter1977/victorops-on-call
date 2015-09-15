@@ -3,40 +3,67 @@ var victoropsoncall = require('./victoropsoncall.js');
 var redis = require('./redis.js');
 var config = require('./config/index');
 var Promise = require("bluebird");
+var notifiers = require('./notifiers.js');
+var fs = require('fs');
 
 var interval = config.get('applicationSettings:pollingIntervalSeconds') * 1000 || 5000;
 debug('Polling interval in ms : ' + interval);
 
-var hash = 'oncall';
+var hash = 'oncallrota';
+
+//get all the notifiers
+fs.readdir('./notifiers/', function(err, files){
+    if(err){
+        return debug(err, 'No notifiers were registered');
+    }
+
+    files.forEach(function(notifier){
+        debug('Adding notifier : ./notifiers/' + notifier);
+        notifiers.registerNotifier(require('./notifiers/' + notifier));
+    });    
+})
 
 redis.deleteHash(hash).then(function(){
 
     setInterval(function(){
 
-        var currentPeopleOnCallForAllTeams, currentOnCallStoredData;
+        var currentOnCallDataRetrievedFromVictorOps, currentOnCallDataStoredInRedis;
 
         victoropsoncall.getOnCallRotaForAllTeams().then(function(data){
             var onCallData = JSON.parse(data);
             return victoropsoncall.getPeopleOnCallForAllTeams(onCallData);
         }).then(function(data){
-            currentPeopleOnCallForAllTeams = data;
-            //debug('currentPeopleOnCallForAllTeams', currentPeopleOnCallForAllTeams);
+            currentOnCallDataRetrievedFromVictorOps = data;
             return redis.getHash(hash);
         }).then(function(data){            
             if(data == null) {
-                //Add the data to redis for the first time
-                redis.setHash(hash, {"oncall" : JSON.stringify(currentPeopleOnCallForAllTeams.oncall)});
                 return new Promise(function(resolve){
-                    resolve(false);
+                    resolve(true);
                 })
             }
             else {
                 //Check if the data has changed and update redis if required
-                currentOnCallStoredData = data;
-                return victoropsoncall.hasRotaChanged(JSON.parse(currentOnCallStoredData.oncall), currentPeopleOnCallForAllTeams.oncall);
+                currentOnCallDataStoredInRedis = data;
+                return victoropsoncall.hasRotaChanged(JSON.parse(currentOnCallDataStoredInRedis.oncall), currentOnCallDataRetrievedFromVictorOps.oncall);
             }
-        }).then(function(data){
-            console.log('data has changed ? : ' + data);
+        }).then(function(onCallDataHasChanged){
+
+            var onCallData;
+            if(currentOnCallDataStoredInRedis === undefined || onCallDataHasChanged){
+                onCallData = currentOnCallDataRetrievedFromVictorOps;
+            }
+            else {
+                onCallData = {
+                    'oncall' : JSON.parse(currentOnCallDataStoredInRedis.oncall)
+                };
+            }
+
+            if(onCallDataHasChanged || config.get('applicationSettings:alwaysNotify')){ 
+                notifiers.runAllNotifiers(onCallData);
+            }
+
+            //store the new data in redis
+            return redis.setHash(hash, {'oncall' : JSON.stringify(onCallData.oncall)});
         }).catch(function(err){
             var stackTrace = new Error();
             debug(err, err.stack);

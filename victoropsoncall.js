@@ -88,7 +88,7 @@ module.exports = function(){
 
         _.forEach(organisationOnCallData, function(teamOnCallData){
           _.forEach(teamOnCallData.oncall, function(onCallRota){
-            if("oncall" in onCallRota) {
+            if('oncall' in onCallRota) {
               peopleOnCall.oncall.push({"team" : teamOnCallData.name,"oncall" : onCallRota.oncall});
               return false;
             }
