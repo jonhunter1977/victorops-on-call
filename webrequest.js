@@ -38,7 +38,7 @@ module.exports = function(){
       });
 
       req.on('error', function(e) {
-        debug('PROBLEM WITH WEBREQUEST : ' + e.message); 
+        debug(new Date(), 'Problem with webrequest : ' + e.message); 
         reject(e);
       });
 

@@ -6,17 +6,17 @@ var riverStyx = new require('../lib/rabbit')(rabbitConfig);
 
 riverStyx.start(function(err){
     if(err) {
-        debug('River Styx notifier require error : ', err.message);
+        debug(new Date(), 'River Styx notifier require error : ', err.message);
     }
 
-    debug('River Styx notifier required');
+    debug(new Date(), 'River Styx notifier required');
 });
 
 module.exports = function(data){
 
-    debug('River Styx notifier called');
+    debug(new Date(), 'River Styx notifier called');
 
     riverStyx.publish(data, rabbitConfig, function(err){
-        debug('On call data sent to river Styx');
+        debug(new Date(), 'On call data sent to river Styx');
     });
 }

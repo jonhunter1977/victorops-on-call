@@ -14,11 +14,11 @@ var hash = 'oncallrota';
 //get all the notifiers
 fs.readdir('./notifiers/', function(err, files){
     if(err){
-        return debug(err, 'No notifiers were registered');
+        return debug(new Date(), 'No notifiers were registered : ' + err);
     }
 
     files.forEach(function(notifier){
-        debug('Adding notifier : ./notifiers/' + notifier);
+        debug(new Date(), 'Adding notifier : ./notifiers/' + notifier);
         notifiers.registerNotifier(require('./notifiers/' + notifier));
     });    
 })
@@ -61,12 +61,15 @@ redis.deleteHash(hash).then(function(){
             if(onCallDataHasChanged || config.get('applicationSettings:alwaysNotify')){ 
                 notifiers.runAllNotifiers(onCallData);
             }
+            else {
+                debug(new Date(), 'On call data has not changed since last check');
+            }
 
             //store the new data in redis
             return redis.setHash(hash, {'oncall' : JSON.stringify(onCallData.oncall)});
         }).catch(function(err){
             var stackTrace = new Error();
-            debug(err, err.stack);
+            debug(new Date(), err, stackTrace.stack);
         });
 
     }, interval);

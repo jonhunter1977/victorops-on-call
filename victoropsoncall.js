@@ -16,7 +16,7 @@ else {
 
 module.exports = function(){
 
-    var authorisationString = config.get('victorOpsApi:username') + ':' + config.get('victorOpsApi:password');
+    var authorisationString = config.get('victorOpsCredentials:username') + ':' + config.get('victorOpsCredentials:password');
     var authorisation = new Buffer(authorisationString).toString('base64')
 
     var getOnCallRotaForAllTeams = function() {
@@ -108,14 +108,11 @@ module.exports = function(){
     var hasRotaChanged = function(oldRota, newRota){
       return new Promise(function(resolve, reject){
 
-          //debug(JSON.stringify(oldRota), JSON.stringify(newRota));
-
           if(oldRota === '' || oldRota === null || typeof oldRota === 'undefined' || oldRota.length === 0 || 
             newRota === '' || newRota === null || typeof newRota === 'undefined'|| newRota.length === 0 ){
             reject('some or all rota data was not supplied');
           }
 
-          //var isEqual = _.isEqual(JSON.stringify(oldRota), JSON.stringify(newRota));
           var isEqual = _.isEqual(oldRota, newRota);
           resolve(!isEqual);
       });
