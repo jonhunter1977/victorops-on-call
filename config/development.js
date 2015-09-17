@@ -1,10 +1,6 @@
 'use strict';
 
 module.exports = {
-    "victorOpsApi": {
-        "isSecure": true,
-        "hostname": "portal.victorops.com"
-    },
     "applicationSettings": {
         "pollingIntervalSeconds": 10,
         "alwaysNotify": true

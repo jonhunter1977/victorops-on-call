@@ -7,7 +7,7 @@ var notifiers = require('./notifiers.js');
 var fs = require('fs');
 
 var interval = config.get('applicationSettings:pollingIntervalSeconds') * 1000 || 5000;
-debug('Polling interval in ms : ' + interval);
+debug(new Date(), 'Polling interval in ms : ' + interval);
 
 var hash = 'oncallrota';
 

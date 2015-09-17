@@ -7,9 +7,11 @@ var isApiSecure = config.get('victorOpsApi:isSecure');
 
 if(isApiSecure) {
     webRequest = require('https');
+    debug(new Date(), 'HTTPS will be used for API calls');
 } 
 else {
     webRequest = require('http');
+    debug(new Date(), 'HTTP will be used for API calls');
 }
 
 module.exports = function(){
@@ -19,6 +21,8 @@ module.exports = function(){
     return new Promise(function(resolve, reject){
       
       var reqData = '';
+
+      debug(new Date(), options);
 
       var req = webRequest.request(options, function(res) {
 

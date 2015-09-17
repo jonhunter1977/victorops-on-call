@@ -22,6 +22,7 @@ if (environment) {
     debug(new Date(), 'Using configuration file : ' + environment + '.js');
     var env = require('../config/' + environment);
     nconf.overrides(env);
+    debug(new Date(), environment + '.js configuration file loaded');
 }
 else {
     debug(new Date(), 'Using default configuration');
@@ -29,6 +30,8 @@ else {
 
 var defaults = require('../config/default');
 nconf.defaults(defaults);
+
+debug(new Date(), 'Configuration loaded');
 
 module.exports = {
     get: function (key) {
