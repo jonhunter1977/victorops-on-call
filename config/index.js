@@ -16,6 +16,15 @@ else {
     debug(new Date(), 'No victorops credentials file found');
 }
 
+var configFile = './config/config.json';
+if (fs.existsSync(configFile)) {
+    nconf.file(configFile);
+    debug(new Date(), 'config.json loaded');
+}
+else {
+    debug(new Date(), 'No configuration file found');
+}
+
 var environment = process.env.NODE_ENV;
 
 if (environment) {
@@ -27,9 +36,6 @@ if (environment) {
 else {
     debug(new Date(), 'Using default configuration');
 }
-
-var defaults = require('../config/default');
-nconf.defaults(defaults);
 
 debug(new Date(), 'Configuration loaded');
 
