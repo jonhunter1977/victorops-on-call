@@ -3,6 +3,10 @@
         "isSecure": true,
         "hostname": "portal.victorops.com"
     },
+    "victorOpsCredentials": {
+        "username": "laterooms_api_user",
+        "password": "apiuser123"
+    },
     "applicationSettings": {
         "pollingIntervalSeconds": 300,
         "alwaysNotify": false
