@@ -9,6 +9,8 @@ var fs = require('fs');
 var interval = config.get('applicationSettings:pollingIntervalSeconds') * 1000 || 5000;
 debug(new Date(), 'Polling interval in ms : ' + interval);
 
+debug(new Date(), 'ENV variables : ' + process.env);
+
 var hash = 'oncallrota';
 
 //get all the notifiers
