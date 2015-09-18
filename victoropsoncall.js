@@ -4,15 +4,8 @@ var debug = require('debug')('victor-ops-on-call:victoropsoncall');
 var Promise = require("bluebird");
 var _ = require('lodash');
 
-var isApiSecure = config.get('victorOpsApi:isSecure');
+var isApiSecure = config.get('victorOpsApi:isSecure') ? 'https://' : 'http://';
 var hostname = config.get('victorOpsApi:hostname');
-
-if(isApiSecure) {
-    webRequest = require('https');
-} 
-else {
-    webRequest = require('http');
-}
 
 module.exports = function(){
 
@@ -24,8 +17,7 @@ module.exports = function(){
       return new Promise(function(resolve, reject){
 
         var options = {
-          hostname: config.get('victorOpsApi:hostname'),
-          path: "/api/v1/org/laterooms/teams",
+          url: isApiSecure + hostname + "/api/v1/org/laterooms/teams",
           method: "GET",
           headers: {
             "Accept": "application/json",
@@ -46,8 +38,7 @@ module.exports = function(){
       return new Promise(function(resolve, reject){
 
         var options = {
-          hostname: config.get('victorOpsApi:hostname'),
-          path: "/api/v1/org/laterooms/teams/" + teamName + "/oncall",
+          url: isApiSecure + hostname + "/api/v1/org/laterooms/teams/" + teamName + "/oncall",
           method: "GET",
           headers: {
             "Accept": "application/json",

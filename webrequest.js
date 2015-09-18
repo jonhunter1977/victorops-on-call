@@ -2,51 +2,28 @@ var webRequest;
 var config = require('./config/index');
 var debug = require('debug')('victor-ops-on-call:webrequest');
 var Promise = require("bluebird");
+var webRequest = require('request');
 
-var isApiSecure = config.get('victorOpsApi:isSecure');
-
-if(isApiSecure) {
-    webRequest = require('https');
-    debug(new Date(), 'HTTPS will be used for API calls');
-} 
-else {
-    webRequest = require('http');
-    debug(new Date(), 'HTTP will be used for API calls');
-}
+var isApiSecure = config.get('victorOpsApi:isSecure') ? 'https://' : 'http://';
 
 module.exports = function(){
 
   var callApi = function(options){ 
     
     return new Promise(function(resolve, reject){
-      
-      var reqData = '';
 
       debug(new Date(), options);
 
-      var req = webRequest.request(options, function(res) {
+      webRequest(options, function(error, response, body) {
 
-          res.setEncoding('utf8');
+          if (error) {
+            debug(new Date(), 'Problem with webrequest : ' + error); 
+            return reject(error);
+          }
 
-          res.on('data', function (data) {
-              reqData += data;
-          });
-
-          res.on('end', function (data) {
-              resolve(reqData);
-          });
-
-          res.on('error', function (err) {
-              reject(err);
-          });
+          resolve(body);
       });
 
-      req.on('error', function(e) {
-        debug(new Date(), 'Problem with webrequest : ' + e.message); 
-        reject(e);
-      });
-
-      req.end();
     });
     
   };
