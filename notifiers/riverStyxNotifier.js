@@ -2,7 +2,6 @@ var debug = require('debug')('victor-ops-on-call:notifiers:riverStyxNotifier');
 var config = require('../config/index');
 
 var rabbitConfig = config.get('rabbit') || {};
-debug(rabbitConfig);
 var riverStyx = new require('../lib/rabbit')(rabbitConfig);
 
 riverStyx.start(function(err){
