@@ -9,7 +9,7 @@ var fs = require('fs');
 var interval = config.get('applicationSettings:pollingIntervalSeconds') * 1000 || 5000;
 debug(new Date(), 'Polling interval in ms : ' + interval);
 
-debug(new Date(), 'ENV variables : ' + process.env);
+debug(new Date(), process.env);
 
 var hash = 'oncallrota';
 
