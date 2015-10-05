@@ -3,6 +3,7 @@ var config = require('./config/index');
 var debug = require('debug')('victor-ops-on-call:victoropsoncall');
 var Promise = require("bluebird");
 var _ = require('lodash');
+var moment = require('moment');
 
 var isApiSecure = config.get('victorOpsApi:isSecure') ? 'https://' : 'http://';
 var hostname = config.get('victorOpsApi:hostname');
@@ -67,6 +68,20 @@ module.exports = function(){
       });
     }
 
+    var getMatchingOverlay = function(overlays) {
+      var currentTime = moment().valueOf();
+
+      var matchingOverlays = _.filter(overlays, function(overlay) {
+        return currentTime >= overlay.start && currentTime <= overlay.end;
+      });
+
+      if(!matchingOverlays.length) {
+        return;
+      }
+
+      return _.first(matchingOverlays);
+    };
+
     var getPeopleOnCallForAllTeams = function(organisationOnCallData) {
 
       return new Promise(function(resolve, reject){
@@ -80,7 +95,9 @@ module.exports = function(){
         _.forEach(organisationOnCallData, function(teamOnCallData){
           _.forEach(teamOnCallData.oncall, function(onCallRota){
             if('oncall' in onCallRota) {
-              peopleOnCall.oncall.push({"team" : teamOnCallData.name,"oncall" : onCallRota.oncall});
+              var override = getMatchingOverlay(teamOnCallData.overlays);
+
+              peopleOnCall.oncall.push({"team" : teamOnCallData.name,"oncall" : override ? override.over : onCallRota.oncall});
               return false;
             }
           });
