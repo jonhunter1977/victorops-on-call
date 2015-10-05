@@ -1,7 +1,20 @@
 var debug = require('debug')('victor-ops-on-call:victoropsoncall-tests');
 var config = require('../config/index');
 var expect = require('expect.js');
-var victoropsoncall = require('../victoropsoncall.js');
+var originalMoment = require('moment');
+var proxyquire = require('proxyquire');
+var currentTime;
+var victoropsoncall = proxyquire('../victoropsoncall.js', {
+    'moment': function() {
+        var args = Array.prototype.slice.call(arguments);
+
+        if(args.length) {
+            return originalMoment.apply(undefined, args);
+        }
+
+        return originalMoment(currentTime)
+    }
+});
 var Promise = require("bluebird");
 var testOnCallData = require('./data/oncall.json');
 var _ = require('lodash');
@@ -17,6 +30,10 @@ var mockApi = {
 };
 
 describe('Victor-Ops', function () {
+    beforeEach(function() {
+        currentTime = undefined;
+    });
+
     describe('getPersonOnCallForTeam', function () {
         it('Should return ssunkari on support for the Application Support team', function () {
             var teamName = 'Application Support'
@@ -64,14 +81,6 @@ describe('Victor-Ops', function () {
             var organisationOnCallData = mockApi.getOnCallRotaForAllTeams();
 
             return victoropsoncall.getPeopleOnCallForAllTeams(organisationOnCallData).then(function(data){
-
-                var expectedData = { "oncall" : [
-                    {"team" : "Application Support","oncall" : "ssunkari"},
-                    {"team" : "System Support","oncall" : "pcrombie"},
-                    {"team" : "Database Support","oncall" : "mrkashif"},
-                    {"team" : "Duty Management","oncall" : "itservicedesk"}
-                ]};
-
                 expect(data.oncall[1].oncall).to.eql('pcrombie');
             }).catch(function(err){
                 expect().fail(err);
@@ -95,6 +104,20 @@ describe('Victor-Ops', function () {
                 expect().fail(err);
             });
         });        
+
+        describe('Should override on support for Duty Management', function () {
+            it('current date within bounds of override', function () {
+                currentTime = 1442854800000;
+
+                var organisationOnCallData = mockApi.getOnCallRotaForAllTeams();
+
+                return victoropsoncall.getPeopleOnCallForAllTeams(organisationOnCallData).then(function(data){
+                    expect(data.oncall[3].oncall).to.eql('djwilliamslr');
+                }).catch(function(err){
+                    expect().fail(err);
+                });
+            });
+        });
 
         it('If no data is passed then it will error', function () {
             var organisationOnCallData = '';
