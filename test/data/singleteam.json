@@ -1,0 +1,41 @@
+[
+    {
+        "slug": "application-support",
+        "name": "Application Support",
+        "memberCount": 3,
+        "oncall": [
+            {
+                "oncall": "ssunkari",
+                "policyType": "rotation_group",
+                "rotation_id": 5059,
+                "rotation_name": "Start",
+                "shift_id": 7702,
+                "shift_name": "Start",
+                "shift_roll": 1441612800000,
+                "rolls": [
+                    {
+                        "change": 1441612800000,
+                        "until": 1442217600000,
+                        "oncall": "ssunkari",
+                        "isRoll": true
+                    },
+                    {
+                        "change": 1442217600000,
+                        "until": 1442822400000,
+                        "oncall": "steveelliott",
+                        "isRoll": true
+                    },
+                    {
+                        "change": 1442822400000,
+                        "until": 1443427200000,
+                        "oncall": "jryan",
+                        "isRoll": true
+                    }
+                ]
+            }
+        ],
+        "overlays": [],
+        "isDefaultTeam": false,
+        "version": 0
+    }
+]

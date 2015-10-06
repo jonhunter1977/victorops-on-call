@@ -1,0 +1,241 @@
+[
+  {
+    "slug": "duty-management",
+    "name": "Duty Management",
+    "memberCount": 4,
+    "oncall": [
+      {
+        "policyType": "rotation_group",
+        "rotation_id": 9094,
+        "rotation_name": "Weekends",
+        "shift_id": 15169,
+        "shift_name": "Weekends",
+        "shift_roll": 1443855600000,
+        "rolls": [
+          {
+            "change": 1443855600000,
+            "until": 1444028400000,
+            "oncall": "djwilliamslr",
+            "isRoll": true
+          },
+          {
+            "change": 1444460400000,
+            "until": 1444633200000,
+            "oncall": "dguy",
+            "isRoll": true
+          },
+          {
+            "change": 1445065200000,
+            "until": 1445238000000,
+            "oncall": "trabbani",
+            "isRoll": true
+          }
+        ]
+      },
+      {
+        "oncall": "dguy",
+        "policyType": "rotation_group",
+        "rotation_id": 9094,
+        "rotation_name": "Duty Manager",
+        "shift_id": 15151,
+        "shift_name": "Duty Manager",
+        "shift_roll": 1444064400000,
+        "rolls": [
+          {
+            "change": 1444064400000,
+            "until": 1444114800000,
+            "oncall": "dguy",
+            "isRoll": true
+          },
+          {
+            "change": 1444150800000,
+            "until": 1444201200000,
+            "oncall": "dguy",
+            "isRoll": false
+          },
+          {
+            "change": 1444237200000,
+            "until": 1444287600000,
+            "oncall": "dguy",
+            "isRoll": false
+          },
+          {
+            "change": 1444323600000,
+            "until": 1444374000000,
+            "oncall": "dguy",
+            "isRoll": false
+          },
+          {
+            "change": 1444410000000,
+            "until": 1444460400000,
+            "oncall": "dguy",
+            "isRoll": false
+          },
+          {
+            "change": 1444669200000,
+            "until": 1444719600000,
+            "oncall": "trabbani",
+            "isRoll": true
+          },
+          {
+            "change": 1444755600000,
+            "until": 1444806000000,
+            "oncall": "trabbani",
+            "isRoll": false
+          },
+          {
+            "change": 1444842000000,
+            "until": 1444892400000,
+            "oncall": "trabbani",
+            "isRoll": false
+          },
+          {
+            "change": 1444928400000,
+            "until": 1444978800000,
+            "oncall": "trabbani",
+            "isRoll": false
+          },
+          {
+            "change": 1445014800000,
+            "until": 1445065200000,
+            "oncall": "trabbani",
+            "isRoll": false
+          },
+          {
+            "change": 1445274000000,
+            "until": 1445324400000,
+            "oncall": "djwilliamslr",
+            "isRoll": true
+          },
+          {
+            "change": 1445360400000,
+            "until": 1445410800000,
+            "oncall": "djwilliamslr",
+            "isRoll": false
+          },
+          {
+            "change": 1445446800000,
+            "until": 1445497200000,
+            "oncall": "djwilliamslr",
+            "isRoll": false
+          },
+          {
+            "change": 1445533200000,
+            "until": 1445583600000,
+            "oncall": "djwilliamslr",
+            "isRoll": false
+          },
+          {
+            "change": 1445619600000,
+            "until": 1445670000000,
+            "oncall": "djwilliamslr",
+            "isRoll": false
+          }
+        ]
+      },
+      {
+        "policyType": "rotation_group",
+        "rotation_id": 9094,
+        "rotation_name": "IT Service Desk",
+        "shift_id": 15148,
+        "shift_name": "IT Service Desk",
+        "shift_roll": 1444114800000,
+        "rolls": [
+          {
+            "change": 1444114800000,
+            "until": 1444150800000,
+            "oncall": "itservicedesk",
+            "isRoll": true
+          },
+          {
+            "change": 1444201200000,
+            "until": 1444237200000,
+            "oncall": "itservicedesk",
+            "isRoll": false
+          },
+          {
+            "change": 1444287600000,
+            "until": 1444323600000,
+            "oncall": "itservicedesk",
+            "isRoll": false
+          },
+          {
+            "change": 1444374000000,
+            "until": 1444410000000,
+            "oncall": "itservicedesk",
+            "isRoll": false
+          },
+          {
+            "change": 1444633200000,
+            "until": 1444669200000,
+            "oncall": "itservicedesk",
+            "isRoll": false
+          },
+          {
+            "change": 1444719600000,
+            "until": 1444755600000,
+            "oncall": "itservicedesk",
+            "isRoll": true
+          },
+          {
+            "change": 1444806000000,
+            "until": 1444842000000,
+            "oncall": "itservicedesk",
+            "isRoll": false
+          },
+          {
+            "change": 1444892400000,
+            "until": 1444928400000,
+            "oncall": "itservicedesk",
+            "isRoll": false
+          },
+          {
+            "change": 1444978800000,
+            "until": 1445014800000,
+            "oncall": "itservicedesk",
+            "isRoll": false
+          },
+          {
+            "change": 1445238000000,
+            "until": 1445274000000,
+            "oncall": "itservicedesk",
+            "isRoll": false
+          },
+          {
+            "change": 1445324400000,
+            "until": 1445360400000,
+            "oncall": "itservicedesk",
+            "isRoll": true
+          },
+          {
+            "change": 1445410800000,
+            "until": 1445446800000,
+            "oncall": "itservicedesk",
+            "isRoll": false
+          },
+          {
+            "change": 1445497200000,
+            "until": 1445533200000,
+            "oncall": "itservicedesk",
+            "isRoll": false
+          },
+          {
+            "change": 1445583600000,
+            "until": 1445619600000,
+            "oncall": "itservicedesk",
+            "isRoll": false
+          },
+          {
+            "change": 1445846400000,
+            "until": 1445882400000,
+            "oncall": "itservicedesk",
+            "isRoll": false
+          }
+        ]
+      }
+    ],
+    "overlays": [],
+    "isDefaultTeam": false,
+    "version": 0
+  }
+]

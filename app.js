@@ -25,6 +25,12 @@ fs.readdir('./notifiers/', function(err, files){
     });    
 })
 
+function storeRotation(onCallData) {
+    victoropsoncall.getOnCallRotationForAllTeams(onCallData).then(function(data) {
+        return redis.setHash('oncallRota', data);
+    });
+}
+
 redis.deleteHash(hash).then(function(){
 
     setInterval(function(){
@@ -33,9 +39,13 @@ redis.deleteHash(hash).then(function(){
 
         victoropsoncall.getOnCallRotaForAllTeams().then(function(data){
             var onCallData = JSON.parse(data);
+
+            storeRotation();
+
             return victoropsoncall.getPeopleOnCallForAllTeams(onCallData);
         }).then(function(data){
             currentOnCallDataRetrievedFromVictorOps = data;
+
             return redis.getHash(hash);
         }).then(function(data){            
             if(data == null) {
