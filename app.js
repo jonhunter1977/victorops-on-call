@@ -27,7 +27,7 @@ fs.readdir('./notifiers/', function(err, files){
 
 function storeRotation(onCallData) {
     victoropsoncall.getOnCallRotationForAllTeams(onCallData).then(function(data) {
-        return redis.setHash('oncallRota', data);
+        return redis.setHash('oncallSchedule', data);
     });
 }
 
