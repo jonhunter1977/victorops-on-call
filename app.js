@@ -30,7 +30,7 @@ function registerNotifiers () {
 
 function storeRotation(onCallData) {
     victoropsoncall.getOnCallRotationForAllTeams(onCallData).then(function(data) {
-        return redis.setHash('oncallSchedule', { teams: JSON.stringify(data) });
+        return redis.setHash('oncallSchedule', { teams: JSON.stringify(data.teams) });
     });
 }
 
