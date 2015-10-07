@@ -34,6 +34,8 @@ function storeRotation(onCallData) {
 
 redis.deleteHash(hash).then(function(){
 
+    debug(new Date(), 'Storing oncall schedule.');
+    
     setInterval(function(){
 
         var currentOnCallDataRetrievedFromVictorOps, currentOnCallDataStoredInRedis;
