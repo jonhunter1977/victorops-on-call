@@ -95,6 +95,10 @@ module.exports = function(){
             return rotation.change;
           });
 
+          if(!currentRotation) {
+            console.log(JSON.stringify(team, null, 4));
+          }
+
           allTeams[team.name] = {
             current: currentRotation.oncall,
             schedule: _.reduce(allRotations, function(allRotations, rotation) {
