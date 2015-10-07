@@ -40,7 +40,7 @@ redis.deleteHash(hash).then(function(){
         victoropsoncall.getOnCallRotaForAllTeams().then(function(data){
             var onCallData = JSON.parse(data);
 
-            storeRotation();
+            storeRotation(data);
 
             return victoropsoncall.getPeopleOnCallForAllTeams(onCallData);
         }).then(function(data){

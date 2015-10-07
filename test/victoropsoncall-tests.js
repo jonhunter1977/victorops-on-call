@@ -57,7 +57,7 @@ describe('Victor-Ops', function() {
         });
     });
 
-    describe.only('getOnCallRotationForAllTeams', function() {
+    describe('getOnCallRotationForAllTeams', function() {
         describe('for a single team', function() {
             it('Sets currently on call', function(done) {
                 var organisationOnCallData = mockApi.getOnCallRotaForAllTeams('singleteam');
