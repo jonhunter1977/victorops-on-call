@@ -96,7 +96,7 @@ module.exports = function(){
           });
 
           if(!currentRotation) {
-            console.log(JSON.stringify(team, null, 4));
+            console.log(JSON.stringify(organisationOnCallData, null, 4));
           }
 
           allTeams[team.name] = {
