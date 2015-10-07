@@ -96,7 +96,12 @@ module.exports = function(){
           });
 
           if(!currentRotation) {
-            console.log(JSON.stringify(organisationOnCallData, null, 4));
+            allTeams[team.name] = {
+              current: 'No-one',
+              schedule: []
+            };
+
+            return allTeams;
           }
 
           allTeams[team.name] = {
@@ -117,6 +122,7 @@ module.exports = function(){
               return allRotations;
             }, [])
           };
+
 
           return allTeams;
         }, {});
