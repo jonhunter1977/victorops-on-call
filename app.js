@@ -26,9 +26,6 @@ fs.readdir('./notifiers/', function(err, files){
 })
 
 function storeRotation(onCallData) {
-    debug(new Date(), '**********');
-    debug(new Date(), onCallData);
-    debug(new Date(), '**********');
     victoropsoncall.getOnCallRotationForAllTeams(onCallData).then(function(data) {
         return redis.setHash('oncallSchedule', data);
     });
@@ -45,7 +42,7 @@ redis.deleteHash(hash).then(function(){
         victoropsoncall.getOnCallRotaForAllTeams().then(function(data){
             var onCallData = JSON.parse(data);
 
-            storeRotation(data);
+            storeRotation(onCallData);
 
             return victoropsoncall.getPeopleOnCallForAllTeams(onCallData);
         }).then(function(data){
