@@ -9,21 +9,24 @@ var fs = require('fs');
 var interval = config.get('applicationSettings:pollingIntervalSeconds') * 1000 || 5000;
 debug(new Date(), 'Polling interval in ms : ' + interval);
 
-//debug(new Date(), process.env);
-
 var hash = 'oncallrota';
 
-//get all the notifiers
-fs.readdir('./notifiers/', function(err, files){
-    if(err){
-        return debug(new Date(), 'No notifiers were registered : ' + err);
-    }
+function registerNotifiers () {
+    return new Promise(function(resolve, reject) {
+        fs.readdir('./notifiers/', function(err, files){
+            if(err){
+                return reject('No notifiers were registered : ' + err);
+            }
 
-    files.forEach(function(notifier){
-        debug(new Date(), 'Adding notifier : ./notifiers/' + notifier);
-        notifiers.registerNotifier(require('./notifiers/' + notifier));
-    });    
-})
+            files.forEach(function(notifier){
+                debug(new Date(), 'Adding notifier : ./notifiers/' + notifier);
+                notifiers.registerNotifier(require('./notifiers/' + notifier));
+            });
+
+            resolve();
+        });
+    });
+}
 
 function storeRotation(onCallData) {
     victoropsoncall.getOnCallRotationForAllTeams(onCallData).then(function(data) {
@@ -31,25 +34,23 @@ function storeRotation(onCallData) {
     });
 }
 
-redis.deleteHash(hash).then(function(){
+function refreshOnCallData(){
+    var currentOnCallDataRetrievedFromVictorOps, currentOnCallDataStoredInRedis;
 
-    debug(new Date(), 'Storing oncall schedule.');
-
-    setInterval(function(){
-
-        var currentOnCallDataRetrievedFromVictorOps, currentOnCallDataStoredInRedis;
-
-        victoropsoncall.getOnCallRotaForAllTeams().then(function(data){
+    victoropsoncall.getOnCallRotaForAllTeams()
+        .then(function(data){
             var onCallData = JSON.parse(data);
 
             storeRotation(onCallData);
 
             return victoropsoncall.getPeopleOnCallForAllTeams(onCallData);
-        }).then(function(data){
+        })
+        .then(function(data){
             currentOnCallDataRetrievedFromVictorOps = data;
 
             return redis.getHash(hash);
-        }).then(function(data){            
+        })
+        .then(function(data){            
             if(data == null) {
                 return new Promise(function(resolve){
                     resolve(true);
@@ -60,8 +61,8 @@ redis.deleteHash(hash).then(function(){
                 currentOnCallDataStoredInRedis = data;
                 return victoropsoncall.hasRotaChanged(JSON.parse(currentOnCallDataStoredInRedis.oncall), currentOnCallDataRetrievedFromVictorOps.oncall);
             }
-        }).then(function(onCallDataHasChanged){
-
+        })
+        .then(function(onCallDataHasChanged){
             var onCallData;
             if(currentOnCallDataStoredInRedis === undefined || onCallDataHasChanged){
                 onCallData = currentOnCallDataRetrievedFromVictorOps;
@@ -74,17 +75,23 @@ redis.deleteHash(hash).then(function(){
 
             if(onCallDataHasChanged || config.get('applicationSettings:alwaysNotify')){ 
                 notifiers.runAllNotifiers(onCallData);
+                return redis.setHash(hash, {'oncall' : JSON.stringify(onCallData.oncall)});
             }
             else {
                 debug(new Date(), 'On call data has not changed since last check');
             }
 
-            //store the new data in redis
-            return redis.setHash(hash, {'oncall' : JSON.stringify(onCallData.oncall)});
-        }).catch(function(err){
+            setTimeout(refreshOnCallData, interval);
+        })
+        .catch(function(err){
             var stackTrace = new Error();
             debug(new Date(), err, stackTrace.stack);
+            
+            setTimeout(refreshOnCallData, interval);
         });
 
-    }, interval);
-});
+}
+
+registerNotifiers()
+    .then(redis.deleteHash.bind(undefined, hash))
+    .then(refreshOnCallData);
