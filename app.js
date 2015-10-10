@@ -80,7 +80,8 @@ function refreshOnCallData(){
 
             if(onCallDataHasChanged || config.get('applicationSettings:alwaysNotify')){ 
                 notifiers.runAllNotifiers(onCallData);
-                return redis.setHash(hash, {'oncall' : JSON.stringify(onCallData.oncall)}, scheduleNextCheck);
+                scheduleNextCheck();
+                return redis.setHash(hash, {'oncall' : JSON.stringify(onCallData.oncall)});
             }
             
             debug(new Date(), 'On call data has not changed since last check');
