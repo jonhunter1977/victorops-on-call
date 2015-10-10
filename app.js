@@ -81,12 +81,14 @@ function refreshOnCallData(){
                 debug(new Date(), 'On call data has not changed since last check');
             }
 
+            debug(new Date(), 'Scheduling next check for: ' + interval + 'ms');
             setTimeout(refreshOnCallData, interval);
         })
         .catch(function(err){
             var stackTrace = new Error();
             debug(new Date(), err, stackTrace.stack);
             
+            debug(new Date(), 'Scheduling next check for: ' + interval + 'ms');
             setTimeout(refreshOnCallData, interval);
         });
 
