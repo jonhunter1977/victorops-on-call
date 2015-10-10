@@ -34,6 +34,11 @@ function storeRotation(onCallData) {
     });
 }
 
+function scheduleNextCheck() {
+    debug(new Date(), 'Scheduling next check for: ' + interval + 'ms');
+    setTimeout(refreshOnCallData, interval);\
+}
+
 function refreshOnCallData(){
     var currentOnCallDataRetrievedFromVictorOps, currentOnCallDataStoredInRedis;
 
@@ -75,21 +80,17 @@ function refreshOnCallData(){
 
             if(onCallDataHasChanged || config.get('applicationSettings:alwaysNotify')){ 
                 notifiers.runAllNotifiers(onCallData);
-                return redis.setHash(hash, {'oncall' : JSON.stringify(onCallData.oncall)});
+                return redis.setHash(hash, {'oncall' : JSON.stringify(onCallData.oncall)}, scheduleNextCheck);
             }
-            else {
-                debug(new Date(), 'On call data has not changed since last check');
-            }
-
-            debug(new Date(), 'Scheduling next check for: ' + interval + 'ms');
-            setTimeout(refreshOnCallData, interval);
+            
+            debug(new Date(), 'On call data has not changed since last check');
+            scheduleNextCheck();
         })
         .catch(function(err){
             var stackTrace = new Error();
             debug(new Date(), err, stackTrace.stack);
             
-            debug(new Date(), 'Scheduling next check for: ' + interval + 'ms');
-            setTimeout(refreshOnCallData, interval);
+            scheduleNextCheck();
         });
 
 }
