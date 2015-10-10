@@ -36,7 +36,7 @@ function storeRotation(onCallData) {
 
 function scheduleNextCheck() {
     debug(new Date(), 'Scheduling next check for: ' + interval + 'ms');
-    setTimeout(refreshOnCallData, interval);\
+    setTimeout(refreshOnCallData, interval);
 }
 
 function refreshOnCallData(){
