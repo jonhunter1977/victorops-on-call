@@ -18,7 +18,7 @@ module.exports = function(){
       return new Promise(function(resolve, reject){
 
         var options = {
-          url: isApiSecure + hostname + "/api/v1/org/laterooms/teams",
+          url: isApiSecure + hostname + "/api/v1/org/laterooms/teams?days_forward=28",
           method: "GET",
           headers: {
             "Accept": "application/json",
@@ -39,7 +39,7 @@ module.exports = function(){
       return new Promise(function(resolve, reject){
 
         var options = {
-          url: isApiSecure + hostname + "/api/v1/org/laterooms/teams/" + teamName + "/oncall?days_forward=28",
+          url: isApiSecure + hostname + "/api/v1/org/laterooms/teams/" + teamName + "/oncall",
           method: "GET",
           headers: {
             "Accept": "application/json",
