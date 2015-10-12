@@ -39,7 +39,7 @@ module.exports = function(){
       return new Promise(function(resolve, reject){
 
         var options = {
-          url: isApiSecure + hostname + "/api/v1/org/laterooms/teams/" + teamName + "/oncall",
+          url: isApiSecure + hostname + "/api/v1/org/laterooms/teams/" + teamName + "/oncall?days_forward=28",
           method: "GET",
           headers: {
             "Accept": "application/json",
