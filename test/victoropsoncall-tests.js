@@ -471,6 +471,18 @@ describe('Victor-Ops', function() {
                         done();
                     });
                 });
+
+                it('overrides current', function(done) {
+                    var organisationOnCallData = mockApi.getOnCallRotaForAllTeams('liveExample-three');
+
+                    return victoropsoncall.getOnCallRotationForAllTeams(organisationOnCallData).then(function(data) {
+                        expect(data.teams['Database Support'].current).to.eql('mrkashif');
+                        done();
+                    }).catch(function(err) {
+                        expect().fail(err);
+                        done();
+                    });
+                });
             });
         });
     });

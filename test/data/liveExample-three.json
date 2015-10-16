@@ -1,0 +1,61 @@
+[
+  {
+    "slug": "database-support",
+    "name": "Database Support",
+    "memberCount": 2,
+    "oncall": [
+      {
+        "oncall": "tonybarton65",
+        "overrideoncall": "mrkashif",
+        "policyType": "rotation_group",
+        "rotation_id": 5494,
+        "rotation_name": "Standard",
+        "shift_id": 8404,
+        "shift_name": "Standard",
+        "shift_roll": 1444633200000,
+        "rolls": [
+          {
+            "change": 1444633200000,
+            "until": 1445238000000,
+            "oncall": "tonybarton65",
+            "isRoll": true
+          },
+          {
+            "change": 1445238000000,
+            "until": 1445846400000,
+            "oncall": "mrkashif",
+            "isRoll": true
+          },
+          {
+            "change": 1445846400000,
+            "until": 1446451200000,
+            "oncall": "tonybarton65",
+            "isRoll": true
+          },
+          {
+            "change": 1446451200000,
+            "until": 1447056000000,
+            "oncall": "mrkashif",
+            "isRoll": true
+          },
+          {
+            "change": 1447056000000,
+            "until": 1447660800000,
+            "oncall": "tonybarton65",
+            "isRoll": true
+          }
+        ]
+      }
+    ],
+    "overlays": [
+      {
+        "orig": "tonybarton65",
+        "over": "mrkashif",
+        "start": 1444669200000,
+        "end": 1445238000000
+      }
+    ],
+    "isDefaultTeam": false,
+    "version": 0
+  }
+]

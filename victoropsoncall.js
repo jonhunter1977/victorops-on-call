@@ -110,7 +110,7 @@ module.exports = function(){
           }
 
           allTeams[team.name] = {
-            current: currentRotation.oncall,
+            current: currentRotation.overrideoncall || currentRotation.oncall,
             schedule: _.reduce(allRotations, function(allRotations, rotation, i) {
               var rotationStart = moment(rotation.change);
               var rotationEnd = moment(rotation.until);
