@@ -106,20 +106,86 @@ module.exports = function(){
 
           allTeams[team.name] = {
             current: currentRotation.oncall,
-            schedule: _.reduce(allRotations, function(allRotations, rotation) {
-              if(allRotations.length && allRotations[allRotations.length - 1].oncall === rotation.oncall) {
-                allRotations[allRotations.length - 1].end = moment(rotation.until).utc().format();
+            schedule: _.reduce(allRotations, function(allRotations, rotation, i) {
+              var rotationStart = moment(rotation.change);
+              var rotationEnd = moment(rotation.until);
+              var oncall = rotation.oncall;
 
-                return allRotations;
+              var matchingOverlay = _.chain(team.overlays).filter(function(overlay) {
+                var overlayStart = moment(overlay.start);
+                var overlayEnd = moment(overlay.end);
+
+                return (overlayStart.isAfter(rotationStart) || overlayStart.isSame(rotationStart)) 
+                  && (overlayEnd.isBefore(rotationEnd) || overlayEnd.isSame(rotationEnd));
+              }).first().value();
+
+              var newRotations = [];
+
+              if(matchingOverlay) {
+                var newRotations = [];
+
+                if(moment(matchingOverlay.start).isSame(rotationStart) && moment(matchingOverlay.end).isSame(rotationEnd)) {
+                  newRotations.push({
+                    oncall: matchingOverlay.over,
+                    start: moment(matchingOverlay.start).utc().format(),
+                    end: moment(matchingOverlay.end).utc().format()
+                  });
+                }
+                else if(moment(matchingOverlay.start).isSame(rotationStart)) {
+                  newRotations = newRotations.concat([{
+                      oncall: matchingOverlay.over,
+                      start: moment(matchingOverlay.start).utc().format(),
+                      end: moment(matchingOverlay.end).utc().format()
+                    },
+                    {
+                      oncall: oncall,
+                      start: moment(matchingOverlay.end).utc().format(),
+                      end: rotationEnd.utc().format()
+                    }]);
+                }
+                else if(moment(matchingOverlay.end).isSame(rotationEnd)) {
+                  newRotations = newRotations.concat([{
+                      oncall: oncall,
+                      start: rotationStart.utc().format(),
+                      end: moment(matchingOverlay.start).utc().format()
+                    },
+                    {
+                      oncall: matchingOverlay.over,
+                      start: moment(matchingOverlay.start).utc().format(),
+                      end: moment(matchingOverlay.end).utc().format()
+                    }]);
+                }
+                else {
+                  newRotations = newRotations.concat([{
+                      oncall: oncall,
+                      start: rotationStart.utc().format(),
+                      end: moment(matchingOverlay.start).utc().format()
+                    },
+                    {
+                      oncall: matchingOverlay.over,
+                      start: moment(matchingOverlay.start).utc().format(),
+                      end: moment(matchingOverlay.end).utc().format()
+                    },
+                    {
+                      oncall: oncall,
+                      start: moment(matchingOverlay.end).utc().format(),
+                      end: rotationEnd.utc().format()
+                    }]);
+                }
+              }
+              else {
+                newRotations.push({
+                  oncall: oncall,
+                  start: rotationStart.utc().format(),
+                  end: rotationEnd.utc().format()
+                });
               }
 
-              allRotations.push({
-                oncall: rotation.oncall,
-                start: moment(rotation.change).utc().format(),
-                end: moment(rotation.until).utc().format()
-              });
+              if(newRotations.length && allRotations.length && allRotations[allRotations.length - 1].oncall === newRotations[0].oncall) {
+                allRotations[allRotations.length - 1].end = newRotations.shift().end;
+              }
 
-              return allRotations;
+              return allRotations.concat(newRotations);
             }, [])
           };
 

@@ -232,196 +232,113 @@ describe('Victor-Ops', function() {
             });
 
 
-            it('Sets complex schedule from live', function(done) {
-                var organisationOnCallData = mockApi.getOnCallRotaForAllTeams('liveExample');
+            describe('sets overrides', function() {
+                it('for entire shift', function(done) {
+                    var organisationOnCallData = mockApi.getOnCallRotaForAllTeams('simple-override');
 
-                return victoropsoncall.getOnCallRotationForAllTeams(organisationOnCallData).then(function(data) {
-                    expect(data.teams).to.eql({
-                        "everyone": {
-                            "current": "No-one",
-                            "schedule": []
-                        },
-                        "Application Support": {
-                            "current": "steveelliott",
-                            "schedule": [{
-                                "oncall": "steveelliott",
-                                "start": "2015-10-05T08:00:00+00:00",
-                                "end": "2015-10-12T08:00:00+00:00"
-                            }, {
-                                "oncall": "jryan",
-                                "start": "2015-10-12T08:00:00+00:00",
-                                "end": "2015-10-19T08:00:00+00:00"
-                            }, {
-                                "oncall": "ssunkari",
-                                "start": "2015-10-19T08:00:00+00:00",
-                                "end": "2015-10-26T08:00:00+00:00"
-                            }]
-                        },
-                        "System Support": {
-                            "current": "pcrombie",
-                            "schedule": [{
-                                "oncall": "pcrombie",
-                                "start": "2015-10-05T08:00:00+00:00",
-                                "end": "2015-10-26T08:00:00+00:00"
-                            }]
-                        },
-                        "Database Support": {
-                            "current": "mrkashif",
-                            "schedule": [{
-                                "oncall": "mrkashif",
-                                "start": "2015-10-05T07:00:00+00:00",
-                                "end": "2015-10-12T07:00:00+00:00"
-                            }, {
-                                "oncall": "tonybarton65",
-                                "start": "2015-10-12T07:00:00+00:00",
-                                "end": "2015-10-19T07:00:00+00:00"
-                            }, {
-                                "oncall": "mrkashif",
-                                "start": "2015-10-19T07:00:00+00:00",
-                                "end": "2015-10-26T08:00:00+00:00"
-                            }]
-                        },
-                        "Duty Management": {
-                            "current": "itservicedesk",
-                            "schedule": [{
-                                "oncall": "djwilliamslr",
-                                "start": "2015-10-03T07:00:00+00:00",
-                                "end": "2015-10-05T07:00:00+00:00"
-                            }, {
-                                "oncall": "dguy",
-                                "start": "2015-10-05T17:00:00+00:00",
-                                "end": "2015-10-06T07:00:00+00:00"
-                            }, {
-                                "oncall": "itservicedesk",
-                                "start": "2015-10-06T07:00:00+00:00",
-                                "end": "2015-10-06T17:00:00+00:00"
-                            }, {
-                                "oncall": "dguy",
-                                "start": "2015-10-06T17:00:00+00:00",
-                                "end": "2015-10-07T07:00:00+00:00"
-                            }, {
-                                "oncall": "itservicedesk",
-                                "start": "2015-10-07T07:00:00+00:00",
-                                "end": "2015-10-07T17:00:00+00:00"
-                            }, {
-                                "oncall": "dguy",
-                                "start": "2015-10-07T17:00:00+00:00",
-                                "end": "2015-10-08T07:00:00+00:00"
-                            }, {
-                                "oncall": "itservicedesk",
-                                "start": "2015-10-08T07:00:00+00:00",
-                                "end": "2015-10-08T17:00:00+00:00"
-                            }, {
-                                "oncall": "dguy",
-                                "start": "2015-10-08T17:00:00+00:00",
-                                "end": "2015-10-09T07:00:00+00:00"
-                            }, {
-                                "oncall": "itservicedesk",
-                                "start": "2015-10-09T07:00:00+00:00",
-                                "end": "2015-10-09T17:00:00+00:00"
-                            }, {
-                                "oncall": "dguy",
-                                "start": "2015-10-09T17:00:00+00:00",
-                                "end": "2015-10-12T07:00:00+00:00"
-                            }, {
-                                "oncall": "itservicedesk",
-                                "start": "2015-10-12T07:00:00+00:00",
-                                "end": "2015-10-12T17:00:00+00:00"
-                            }, {
-                                "oncall": "trabbani",
-                                "start": "2015-10-12T17:00:00+00:00",
-                                "end": "2015-10-13T07:00:00+00:00"
-                            }, {
-                                "oncall": "itservicedesk",
-                                "start": "2015-10-13T07:00:00+00:00",
-                                "end": "2015-10-13T17:00:00+00:00"
-                            }, {
-                                "oncall": "trabbani",
-                                "start": "2015-10-13T17:00:00+00:00",
-                                "end": "2015-10-14T07:00:00+00:00"
-                            }, {
-                                "oncall": "itservicedesk",
-                                "start": "2015-10-14T07:00:00+00:00",
-                                "end": "2015-10-14T17:00:00+00:00"
-                            }, {
-                                "oncall": "trabbani",
-                                "start": "2015-10-14T17:00:00+00:00",
-                                "end": "2015-10-15T07:00:00+00:00"
-                            }, {
-                                "oncall": "itservicedesk",
-                                "start": "2015-10-15T07:00:00+00:00",
-                                "end": "2015-10-15T17:00:00+00:00"
-                            }, {
-                                "oncall": "trabbani",
-                                "start": "2015-10-15T17:00:00+00:00",
-                                "end": "2015-10-16T07:00:00+00:00"
-                            }, {
-                                "oncall": "itservicedesk",
-                                "start": "2015-10-16T07:00:00+00:00",
-                                "end": "2015-10-16T17:00:00+00:00"
-                            }, {
-                                "oncall": "trabbani",
-                                "start": "2015-10-16T17:00:00+00:00",
-                                "end": "2015-10-19T07:00:00+00:00"
-                            }, {
-                                "oncall": "itservicedesk",
-                                "start": "2015-10-19T07:00:00+00:00",
-                                "end": "2015-10-19T17:00:00+00:00"
-                            }, {
-                                "oncall": "djwilliamslr",
-                                "start": "2015-10-19T17:00:00+00:00",
-                                "end": "2015-10-20T07:00:00+00:00"
-                            }, {
-                                "oncall": "itservicedesk",
-                                "start": "2015-10-20T07:00:00+00:00",
-                                "end": "2015-10-20T17:00:00+00:00"
-                            }, {
-                                "oncall": "djwilliamslr",
-                                "start": "2015-10-20T17:00:00+00:00",
-                                "end": "2015-10-21T07:00:00+00:00"
-                            }, {
-                                "oncall": "itservicedesk",
-                                "start": "2015-10-21T07:00:00+00:00",
-                                "end": "2015-10-21T17:00:00+00:00"
-                            }, {
-                                "oncall": "djwilliamslr",
-                                "start": "2015-10-21T17:00:00+00:00",
-                                "end": "2015-10-22T07:00:00+00:00"
-                            }, {
-                                "oncall": "itservicedesk",
-                                "start": "2015-10-22T07:00:00+00:00",
-                                "end": "2015-10-22T17:00:00+00:00"
-                            }, {
-                                "oncall": "djwilliamslr",
-                                "start": "2015-10-22T17:00:00+00:00",
-                                "end": "2015-10-23T07:00:00+00:00"
-                            }, {
-                                "oncall": "itservicedesk",
-                                "start": "2015-10-23T07:00:00+00:00",
-                                "end": "2015-10-23T17:00:00+00:00"
-                            }, {
-                                "oncall": "djwilliamslr",
-                                "start": "2015-10-23T17:00:00+00:00",
-                                "end": "2015-10-24T07:00:00+00:00"
-                            }, {
-                                "oncall": "itservicedesk",
-                                "start": "2015-10-26T08:00:00+00:00",
-                                "end": "2015-10-26T18:00:00+00:00"
-                            }]
-                        },
-                        "Test Rotation": {
+                    return victoropsoncall.getOnCallRotationForAllTeams(organisationOnCallData).then(function(data) {
+                        expect(data.teams['Test Rotation']).to.eql({
                             "current": "steveelliott",
                             "schedule": [{
                                 "oncall": "steveelliott",
                                 "start": "2015-10-07T08:00:00+00:00",
+                                "end": "2015-10-14T08:00:00+00:00"
+                            }, {
+                                "oncall": "dguy",
+                                "start": "2015-10-14T08:00:00+00:00",
+                                "end": "2015-10-21T08:00:00+00:00"
+                            }, {
+                                "oncall": "steveelliott",
+                                "start": "2015-10-21T08:00:00+00:00",
                                 "end": "2015-10-28T09:00:00+00:00"
                             }]
-                        }
+                        });
+                        done();
+                    }).catch(function(err) {
+                        expect().fail(err);
+                        done();
                     });
-                    done();
-                }).catch(function(err) {
-                    expect().fail(err);
-                    done();
+                });
+
+                it('for middle of a shift', function(done) {
+                    var organisationOnCallData = mockApi.getOnCallRotaForAllTeams('middle-override');
+
+                    return victoropsoncall.getOnCallRotationForAllTeams(organisationOnCallData).then(function(data) {
+                        expect(data.teams['Test Rotation']).to.eql({
+                            "current": "steveelliott",
+                            "schedule": [{
+                                "oncall": "steveelliott",
+                                "start": "2015-10-07T08:00:00+00:00",
+                                "end": "2015-10-16T08:00:00+00:00"
+                            }, {
+                                "oncall": "dguy",
+                                "start": "2015-10-16T08:00:00+00:00",
+                                "end": "2015-10-17T08:00:00+00:00"
+                            }, {
+                                "oncall": "steveelliott",
+                                "start": "2015-10-17T08:00:00+00:00",
+                                "end": "2015-10-28T09:00:00+00:00"
+                            }]
+                        });
+                        done();
+                    }).catch(function(err) {
+                        expect().fail(err);
+                        done();
+                    });
+                });
+
+                it('for start of a shift', function(done) {
+                    var organisationOnCallData = mockApi.getOnCallRotaForAllTeams('start-override');
+
+                    return victoropsoncall.getOnCallRotationForAllTeams(organisationOnCallData).then(function(data) {
+                        expect(data.teams['Test Rotation']).to.eql({
+                            "current": "steveelliott",
+                            "schedule": [{
+                                "oncall": "steveelliott",
+                                "start": "2015-10-07T08:00:00+00:00",
+                                "end": "2015-10-14T08:00:00+00:00"
+                            }, {
+                                "oncall": "dguy",
+                                "start": "2015-10-14T08:00:00+00:00",
+                                "end": "2015-10-16T08:00:00+00:00"
+                            }, {
+                                "oncall": "steveelliott",
+                                "start": "2015-10-16T08:00:00+00:00",
+                                "end": "2015-10-28T09:00:00+00:00"
+                            }]
+                        });
+                        done();
+                    }).catch(function(err) {
+                        expect().fail(err);
+                        done();
+                    });
+                });
+
+                it('for end of a shift', function(done) {
+                    var organisationOnCallData = mockApi.getOnCallRotaForAllTeams('end-override');
+
+                    return victoropsoncall.getOnCallRotationForAllTeams(organisationOnCallData).then(function(data) {
+                        expect(data.teams['Test Rotation']).to.eql({
+                            "current": "steveelliott",
+                            "schedule": [{
+                                "oncall": "steveelliott",
+                                "start": "2015-10-07T08:00:00+00:00",
+                                "end": "2015-10-16T08:00:00+00:00"
+                            }, {
+                                "oncall": "dguy",
+                                "start": "2015-10-16T08:00:00+00:00",
+                                "end": "2015-10-21T08:00:00+00:00"
+                            }, {
+                                "oncall": "steveelliott",
+                                "start": "2015-10-21T08:00:00+00:00",
+                                "end": "2015-10-28T09:00:00+00:00"
+                            }]
+                        });
+                        done();
+                    }).catch(function(err) {
+                        expect().fail(err);
+                        done();
+                    });
                 });
             });
         });

@@ -1,0 +1,49 @@
+[
+    {
+        "slug": "test-rotation",
+        "name": "Test Rotation",
+        "memberCount": 1,
+        "oncall": [
+            {
+                "oncall": "steveelliott",
+                "overrideoncall": "steveelliott",
+                "policyType": "rotation_group",
+                "rotation_id": 12727,
+                "rotation_name": "Test",
+                "shift_id": 22897,
+                "shift_name": "Test",
+                "shift_roll": 1444204800000,
+                "rolls": [
+                    {
+                        "change": 1444204800000,
+                        "until": 1444809600000,
+                        "oncall": "steveelliott",
+                        "isRoll": true
+                    },
+                    {
+                        "change": 1444809600000,
+                        "until": 1445414400000,
+                        "oncall": "steveelliott",
+                        "isRoll": true
+                    },
+                    {
+                        "change": 1445414400000,
+                        "until": 1446022800000,
+                        "oncall": "steveelliott",
+                        "isRoll": true
+                    }
+                ]
+            }
+        ],
+        "overlays": [
+            {
+                "orig": "steveelliott",
+                "over": "dguy",
+                "start": 1444809600000,
+                "end": 1445414400000
+            }
+        ],
+        "isDefaultTeam": false,
+        "version": 0
+    }
+]
