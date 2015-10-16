@@ -1,0 +1,205 @@
+[
+  {
+    "slug": "test-rotation",
+    "name": "Test Rotation",
+    "memberCount": 2,
+    "oncall": [
+      {
+        "oncall": "steveelliott",
+        "overrideoncall": "steveelliott",
+        "policyType": "rotation_group",
+        "rotation_id": 12727,
+        "rotation_name": "Test",
+        "shift_id": 22897,
+        "shift_name": "Test",
+        "shift_roll": 1444978800000,
+        "rolls": [
+          {
+            "change": 1444978800000,
+            "until": 1445065200000,
+            "oncall": "steveelliott",
+            "isRoll": true
+          },
+          {
+            "change": 1445065200000,
+            "until": 1445151600000,
+            "oncall": "jryan",
+            "isRoll": true
+          },
+          {
+            "change": 1445151600000,
+            "until": 1445238000000,
+            "oncall": "steveelliott",
+            "isRoll": true
+          },
+          {
+            "change": 1445238000000,
+            "until": 1445324400000,
+            "oncall": "jryan",
+            "isRoll": true
+          },
+          {
+            "change": 1445324400000,
+            "until": 1445410800000,
+            "oncall": "steveelliott",
+            "isRoll": true
+          },
+          {
+            "change": 1445410800000,
+            "until": 1445497200000,
+            "oncall": "jryan",
+            "isRoll": true
+          },
+          {
+            "change": 1445497200000,
+            "until": 1445583600000,
+            "oncall": "steveelliott",
+            "isRoll": true
+          },
+          {
+            "change": 1445583600000,
+            "until": 1445670000000,
+            "oncall": "jryan",
+            "isRoll": true
+          },
+          {
+            "change": 1445670000000,
+            "until": 1445760000000,
+            "oncall": "steveelliott",
+            "isRoll": true
+          },
+          {
+            "change": 1445760000000,
+            "until": 1445846400000,
+            "oncall": "jryan",
+            "isRoll": true
+          },
+          {
+            "change": 1445846400000,
+            "until": 1445932800000,
+            "oncall": "steveelliott",
+            "isRoll": true
+          },
+          {
+            "change": 1445932800000,
+            "until": 1446019200000,
+            "oncall": "jryan",
+            "isRoll": true
+          },
+          {
+            "change": 1446019200000,
+            "until": 1446105600000,
+            "oncall": "steveelliott",
+            "isRoll": true
+          },
+          {
+            "change": 1446105600000,
+            "until": 1446192000000,
+            "oncall": "jryan",
+            "isRoll": true
+          },
+          {
+            "change": 1446192000000,
+            "until": 1446278400000,
+            "oncall": "steveelliott",
+            "isRoll": true
+          },
+          {
+            "change": 1446278400000,
+            "until": 1446364800000,
+            "oncall": "jryan",
+            "isRoll": true
+          },
+          {
+            "change": 1446364800000,
+            "until": 1446451200000,
+            "oncall": "steveelliott",
+            "isRoll": true
+          },
+          {
+            "change": 1446451200000,
+            "until": 1446537600000,
+            "oncall": "jryan",
+            "isRoll": true
+          },
+          {
+            "change": 1446537600000,
+            "until": 1446624000000,
+            "oncall": "steveelliott",
+            "isRoll": true
+          },
+          {
+            "change": 1446624000000,
+            "until": 1446710400000,
+            "oncall": "jryan",
+            "isRoll": true
+          },
+          {
+            "change": 1446710400000,
+            "until": 1446796800000,
+            "oncall": "steveelliott",
+            "isRoll": true
+          },
+          {
+            "change": 1446796800000,
+            "until": 1446883200000,
+            "oncall": "jryan",
+            "isRoll": true
+          },
+          {
+            "change": 1446883200000,
+            "until": 1446969600000,
+            "oncall": "steveelliott",
+            "isRoll": true
+          },
+          {
+            "change": 1446969600000,
+            "until": 1447056000000,
+            "oncall": "jryan",
+            "isRoll": true
+          },
+          {
+            "change": 1447056000000,
+            "until": 1447142400000,
+            "oncall": "steveelliott",
+            "isRoll": true
+          },
+          {
+            "change": 1447142400000,
+            "until": 1447228800000,
+            "oncall": "jryan",
+            "isRoll": true
+          },
+          {
+            "change": 1447228800000,
+            "until": 1447315200000,
+            "oncall": "steveelliott",
+            "isRoll": true
+          },
+          {
+            "change": 1447315200000,
+            "until": 1447401600000,
+            "oncall": "jryan",
+            "isRoll": true
+          },
+          {
+            "change": 1447401600000,
+            "until": 1447488000000,
+            "oncall": "steveelliott",
+            "isRoll": true
+          }
+        ]
+      }
+    ],
+    "overlays": [
+      {
+        "orig": "steveelliott",
+        "over": "dguy",
+        "start": 1445238000000,
+        "end": 1445846400000
+      }
+    ],
+    "isDefaultTeam": false,
+    "version": 0
+  }
+]

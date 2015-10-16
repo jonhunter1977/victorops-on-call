@@ -104,6 +104,11 @@ module.exports = function(){
             return allTeams;
           }
 
+          function shiftContainedByOverride(rotationStart, rotationEnd, overlayStart, overlayEnd) {
+            return (overlayStart.isBefore(rotationStart) || overlayStart.isSame(rotationStart)) 
+              && (overlayEnd.isSame(rotationEnd) || overlayEnd.isAfter(rotationEnd));
+          }
+
           allTeams[team.name] = {
             current: currentRotation.oncall,
             schedule: _.reduce(allRotations, function(allRotations, rotation, i) {
@@ -115,13 +120,24 @@ module.exports = function(){
                 var overlayStart = moment(overlay.start);
                 var overlayEnd = moment(overlay.end);
 
-                return (overlayStart.isAfter(rotationStart) || overlayStart.isSame(rotationStart)) 
-                  && (overlayEnd.isBefore(rotationEnd) || overlayEnd.isSame(rotationEnd));
+                return oncall === overlay.orig && (((overlayStart.isAfter(rotationStart) || overlayStart.isSame(rotationStart)) 
+                  && (overlayEnd.isBefore(rotationEnd) || overlayEnd.isSame(rotationEnd)))
+                  || shiftContainedByOverride(rotationStart, rotationEnd, overlayStart, overlayEnd));
               }).first().value();
 
               var newRotations = [];
 
               if(matchingOverlay) {
+                matchingOverlay = JSON.parse(JSON.stringify(matchingOverlay));
+
+                if(moment(matchingOverlay.start).isBefore(rotationStart)) {
+                  matchingOverlay.start = rotationStart.valueOf();
+                }
+
+                if(moment(matchingOverlay.end).isAfter(rotationEnd)) {
+                  matchingOverlay.end = rotationEnd.valueOf();
+                }
+
                 var newRotations = [];
 
                 if(moment(matchingOverlay.start).isSame(rotationStart) && moment(matchingOverlay.end).isSame(rotationEnd)) {

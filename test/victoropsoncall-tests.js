@@ -340,6 +340,137 @@ describe('Victor-Ops', function() {
                         done();
                     });
                 });
+
+                it('overlay spanning multiple days', function(done) {
+                    var organisationOnCallData = mockApi.getOnCallRotaForAllTeams('liveExample-two');
+
+                    return victoropsoncall.getOnCallRotationForAllTeams(organisationOnCallData).then(function(data) {
+                        expect(data.teams['Test Rotation']).to.eql({
+                            current: 'steveelliott',
+                            schedule: [{
+                                oncall: 'steveelliott',
+                                start: '2015-10-16T07:00:00+00:00',
+                                end: '2015-10-17T07:00:00+00:00'
+                            }, {
+                                oncall: 'jryan',
+                                start: '2015-10-17T07:00:00+00:00',
+                                end: '2015-10-18T07:00:00+00:00'
+                            }, {
+                                oncall: 'steveelliott',
+                                start: '2015-10-18T07:00:00+00:00',
+                                end: '2015-10-19T07:00:00+00:00'
+                            }, {
+                                oncall: 'jryan',
+                                start: '2015-10-19T07:00:00+00:00',
+                                end: '2015-10-20T07:00:00+00:00'
+                            }, {
+                                oncall: 'dguy',
+                                start: '2015-10-20T07:00:00+00:00',
+                                end: '2015-10-21T07:00:00+00:00'
+                            }, {
+                                oncall: 'jryan',
+                                start: '2015-10-21T07:00:00+00:00',
+                                end: '2015-10-22T07:00:00+00:00'
+                            }, {
+                                oncall: 'dguy',
+                                start: '2015-10-22T07:00:00+00:00',
+                                end: '2015-10-23T07:00:00+00:00'
+                            }, {
+                                oncall: 'jryan',
+                                start: '2015-10-23T07:00:00+00:00',
+                                end: '2015-10-24T07:00:00+00:00'
+                            }, {
+                                oncall: 'dguy',
+                                start: '2015-10-24T07:00:00+00:00',
+                                end: '2015-10-25T08:00:00+00:00'
+                            }, {
+                                oncall: 'jryan',
+                                start: '2015-10-25T08:00:00+00:00',
+                                end: '2015-10-26T08:00:00+00:00'
+                            }, {
+                                oncall: 'steveelliott',
+                                start: '2015-10-26T08:00:00+00:00',
+                                end: '2015-10-27T08:00:00+00:00'
+                            }, {
+                                oncall: 'jryan',
+                                start: '2015-10-27T08:00:00+00:00',
+                                end: '2015-10-28T08:00:00+00:00'
+                            }, {
+                                oncall: 'steveelliott',
+                                start: '2015-10-28T08:00:00+00:00',
+                                end: '2015-10-29T08:00:00+00:00'
+                            }, {
+                                oncall: 'jryan',
+                                start: '2015-10-29T08:00:00+00:00',
+                                end: '2015-10-30T08:00:00+00:00'
+                            }, {
+                                oncall: 'steveelliott',
+                                start: '2015-10-30T08:00:00+00:00',
+                                end: '2015-10-31T08:00:00+00:00'
+                            }, {
+                                oncall: 'jryan',
+                                start: '2015-10-31T08:00:00+00:00',
+                                end: '2015-11-01T08:00:00+00:00'
+                            }, {
+                                oncall: 'steveelliott',
+                                start: '2015-11-01T08:00:00+00:00',
+                                end: '2015-11-02T08:00:00+00:00'
+                            }, {
+                                oncall: 'jryan',
+                                start: '2015-11-02T08:00:00+00:00',
+                                end: '2015-11-03T08:00:00+00:00'
+                            }, {
+                                oncall: 'steveelliott',
+                                start: '2015-11-03T08:00:00+00:00',
+                                end: '2015-11-04T08:00:00+00:00'
+                            }, {
+                                oncall: 'jryan',
+                                start: '2015-11-04T08:00:00+00:00',
+                                end: '2015-11-05T08:00:00+00:00'
+                            }, {
+                                oncall: 'steveelliott',
+                                start: '2015-11-05T08:00:00+00:00',
+                                end: '2015-11-06T08:00:00+00:00'
+                            }, {
+                                oncall: 'jryan',
+                                start: '2015-11-06T08:00:00+00:00',
+                                end: '2015-11-07T08:00:00+00:00'
+                            }, {
+                                oncall: 'steveelliott',
+                                start: '2015-11-07T08:00:00+00:00',
+                                end: '2015-11-08T08:00:00+00:00'
+                            }, {
+                                oncall: 'jryan',
+                                start: '2015-11-08T08:00:00+00:00',
+                                end: '2015-11-09T08:00:00+00:00'
+                            }, {
+                                oncall: 'steveelliott',
+                                start: '2015-11-09T08:00:00+00:00',
+                                end: '2015-11-10T08:00:00+00:00'
+                            }, {
+                                oncall: 'jryan',
+                                start: '2015-11-10T08:00:00+00:00',
+                                end: '2015-11-11T08:00:00+00:00'
+                            }, {
+                                oncall: 'steveelliott',
+                                start: '2015-11-11T08:00:00+00:00',
+                                end: '2015-11-12T08:00:00+00:00'
+                            }, {
+                                oncall: 'jryan',
+                                start: '2015-11-12T08:00:00+00:00',
+                                end: '2015-11-13T08:00:00+00:00'
+                            }, {
+                                oncall: 'steveelliott',
+                                start: '2015-11-13T08:00:00+00:00',
+                                end: '2015-11-14T08:00:00+00:00'
+                            }]
+                        });
+                        done();
+                    }).catch(function(err) {
+                        expect().fail(err);
+                        done();
+                    });
+                });
             });
         });
     });
